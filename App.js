@@ -1,12 +1,25 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { TailwindProvider } from 'tailwind-rn';
+
+import utilities from './tailwind.json';
+import CurrentStandings from './src/screens/currentStandings';
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('drivers');
+
+  function handleTabPress(tab) {
+    setActiveTab(tab);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TailwindProvider utilities={utilities}>
+      <View style={styles.container}>
+        <CurrentStandings activeTab={activeTab} handleTabPress={handleTabPress} />
+        <StatusBar style="auto" />
+      </View>
+    </TailwindProvider>
   );
 }
 
@@ -14,7 +27,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
