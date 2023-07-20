@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import { Text, View, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useNavigation, CommonActions } from "@react-navigation/native";
@@ -31,6 +31,10 @@ export default function Register() {
 
       if (response.status === 200) {
         console.log("Registration successful:", response.data);
+        Alert.alert(
+            "Registration Successful",
+            "Please proceed to login."
+        )
         navigation.navigate("Login");
       } else {
         console.error("Registration failed:", response.data.message);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TextInput, Button, Alertm, StyleSheet} from "react-native";
+import { Text, View, TextInput, Button, Alert, StyleSheet} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import { useAuth } from "../use-auth";

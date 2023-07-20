@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, SafeAreaView, Linking } from 'react-native';
+import { View, Text, FlatList, SafeAreaView, Linking, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { useTailwind } from 'tailwind-rn';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 export default function CurrentDriverStandings() {
   const [driverStandings, setDriverStandings] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const tailwind = useTailwind();
 
@@ -19,8 +20,10 @@ export default function CurrentDriverStandings() {
         const response = await axios.get(`${API_URL}/current/driverStandings.json`);
         const data = response.data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
         setDriverStandings(data);
+        setLoading(false)
       } catch (e) {
         console.log(e);
+        setLoading(false)
       }
     }
   }, []);
@@ -77,13 +80,17 @@ export default function CurrentDriverStandings() {
   return (
     <View style={tailwind('flex-1 py-5 px-2 bg-white')}>
       {/* <Text style={tailwind('text-2xl font-bold mb-4 text-center')}>Current Driver Standings</Text> */}
-      <FlatList
-        data={driverStandings}
-        keyExtractor={(item) => item.position}
-        renderItem={renderItem}
-        ListHeaderComponent={header()}
-        contentContainerStyle={tailwind('px-4')}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#000" style={tailwind('flex-1 justify-center items-center')} />
+      ) : (
+        <FlatList
+          data={driverStandings}
+          keyExtractor={(item) => item.position}
+          renderItem={renderItem}
+          ListHeaderComponent={header()}
+          contentContainerStyle={tailwind('px-4')}
+        />
+      )}
     </View>
   );
 }

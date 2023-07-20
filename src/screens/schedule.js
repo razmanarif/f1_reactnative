@@ -32,7 +32,8 @@ export default function Schedule() {
 
   function renderItem({ item, index }) {
     const lastItem = index === schedule.length - 1;
-    const formattedDate = new Date(item.date).toLocaleDateString()
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = new Date(item.date).toLocaleDateString('en-GB', options);  
     return (
         <React.Fragment>
         <View style={tailwind('flex-row justify-between items-center mb-4', !lastItem && 'border-b border-gray-300 pb-2')}>

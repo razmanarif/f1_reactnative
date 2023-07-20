@@ -79,7 +79,7 @@ export default function MostRecentResults() {
       
   return (
     <View style={tailwind('flex-1 py-5 px-2 bg-white')}>
-      {/* <Text style={tailwind('text-2xl font-bold mb-4 text-center')}>Current Driver Standings</Text> */}
+      <Text style={tailwind('text-lg font-bold mb-4 text-center')}>2023 British Grand Prix</Text>
       <FlatList
         data={recentResults}
         keyExtractor={(item) => item.position}
