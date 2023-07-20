@@ -1,30 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CurrentConstructorStandings from '../components/currentConstructorStandings';
 import CurrentDriverStandings from '../components/currentDriverStandings';
 
-export default function ({ activeTab, handleTabPress }) {
+const Tab = createMaterialTopTabNavigator();
+
+export default function CurrentStandings () {
   return (
-    <View style={styles.container}>
-      <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'drivers' && styles.activeTab]}
-          onPress={() => handleTabPress('drivers')}
-        >
-          <Text style={styles.tabText}>DRIVERS</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'constructors' && styles.activeTab]}
-          onPress={() => handleTabPress('constructors')}
-        >
-          <Text style={styles.tabText}>TEAMS</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
-        {activeTab === 'drivers' && <CurrentDriverStandings />}
-        {activeTab === 'constructors' && <CurrentConstructorStandings />}
-      </ScrollView>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="drivers" component={CurrentDriverStandings} />
+      <Tab.Screen name="constructors" component={CurrentConstructorStandings} />
+    </Tab.Navigator>
   );
 };
 
